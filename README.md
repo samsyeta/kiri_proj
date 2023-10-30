@@ -1,6 +1,1 @@
-# kiri_proj
-Hello git
-
-vegfhgdsacvs
-
-test task1.3
+Прохождение DataEngineer на 1TData
