@@ -1,10 +1,9 @@
 
-select cus.firstname, cus.lastname, coalesce(sum(ord.total_amount)) as order_sum from customers cus left join orders ord on cus.id=ord.customer_id group by cus.firstname, cus.lastname order by order_sum desc;
+select firstname,lastname from orders inner join customers on customers.id=orders.customer_id where total_amount in (select max(total_amount) from orders) order by total_amount desc;
 
-select cus.firstname, cus.lastname, ord.id, ord.total_amount from customers cus right join orders ord on cus.id=ord.customer_id order by ord.total_amount desc;
+select firstname,lastname, order_id, total_amount from customers inner join orders on customers.id=orders.customer_id where customers.id in (select orders.customer_id where total_amount in (select max (total_amount) from orders)) order by total_amount desc;
 
-with fo as (select customer_id,sum(total_amount) as sum_total_amount from orders group by customer_id) select customer_id,sum_total_amount from fo where sum_total_amount > (select avg(sum_total_amount) from fo);
-
+select firstname,lastname from customers inner join orders on customers.id=orders.customer_id where total_amount > (select avg(total_amount) from orders) order by total_amount desc;
 
 
 
